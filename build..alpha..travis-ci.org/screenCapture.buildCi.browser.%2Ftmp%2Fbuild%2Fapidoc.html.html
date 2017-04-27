@@ -165,7 +165,22 @@
     throw e;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+stdin.setEncoding('utf-8');
+stdin.resume();
+stdin
+.on('data', function (chunk) {
+  chunk.split('\n').forEach(function (line) {
+    try {
+      stdout.write(cardinal.<span class="apidocCodeKeywordSpan">highlight</span>(line, opts) + '\n');
+    } catch (e) {
+      // line doesn't represent a valid js snippet and therefore cannot be parsed -&gt; just print as is
+      stdout.write(line + '\n');
+    }
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -193,7 +208,22 @@
     }
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var cardinal = require('..');
+
+function highlight () {
+
+  // Using the asynchronous highlightFile()
+  // For synchronous highlighting use: highlightFileSync() - see highlight-self-hide-semicolons.js
+
+  cardinal.<span class="apidocCodeKeywordSpan">highlightFile</span>(__filename, { linenos: true }, function (err, res) {
+    if (err) return console.error(err);
+    console.log(res);
+  });
+}
+
+highlight();
+...</pre></li>
     </ul>
 
 
@@ -210,7 +240,22 @@
   opts = opts || { };
   return highlight(code, opts);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    , ''
+  ].join('\n');
+  console.log(msg);
+}
+
+function highlightFile () {
+  try {
+    highlighted = cardinal.<span class="apidocCodeKeywordSpan">highlightFileSync</span>(args[2], opts);
+    console.log(highlighted);
+  } catch (e) {
+    console.trace();
+    console.error(e);
+  }
+}
+...</pre></li>
     </ul>
 
 
@@ -248,7 +293,23 @@
     return undefined;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+#!/usr/bin/env node
+var cardinal = require('..')
+  , utl = require('../utl')
+  , settings = require('../settings')
+  , args = process.argv
+  , theme = settings.resolveTheme()
+  , opts = settings.<span class="apidocCodeKeywordSpan">getSettings</span>()
+  , highlighted
+  ;
+
+opts = opts || {};
+opts.theme = theme;
+
+function usage() {
+...</pre></li>
     </ul>
 
 
@@ -277,7 +338,22 @@
     return undefined;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+#!/usr/bin/env node
+var cardinal = require('..')
+  , utl = require('../utl')
+  , settings = require('../settings')
+  , args = process.argv
+  , theme = settings.<span class="apidocCodeKeywordSpan">resolveTheme</span>()
+  , opts = settings.getSettings()
+  , highlighted
+  ;
+
+opts = opts || {};
+opts.theme = theme;
+...</pre></li>
     </ul>
 
 
